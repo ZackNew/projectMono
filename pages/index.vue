@@ -6,7 +6,8 @@
         <FlexComponent imgSide="left" img-bg-color="bg-[#FF3D00]">
           <template #content>
             <div class="max-w-2xl lg:max-w-3xl font-rs">
-              <p class="text-white">OK, here’s a story, you are a design enthusiast, a design fanatic, a design freak,
+              <p class="text-white text-xl">OK, here’s a story, you are a design enthusiast, a design fanatic, a design
+                freak,
                 ready to dive into the colorful world of graphic design. Unfortunately most if not all schools are way
                 too
                 average to show you the way.
@@ -20,9 +21,9 @@
             </div>
           </template>
           <template #image>
-            <div class="justify-end">
-              <img src="/images/img1.png" />
-            </div>
+            <img
+              src="https://cdn.pixabay.com/photo/2023/01/22/19/06/swan-7737169_1280.jpg"
+              class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#FBA819]" class="mt-[1px]">
@@ -33,7 +34,7 @@
               </h1>
               <br />
               <br />
-              <p class="text-white font-rs">
+              <p class="text-white font-rs text-xl">
                 That’s easy. Practice don’t make perfect. Perfect practice does. That’s what separates us from the
                 bunch,
                 we
@@ -44,16 +45,15 @@
             </div>
           </template>
           <template #image>
-            <div class="justify-end ">
-              <img src="/images/img2.svg" />
-            </div>
+            <img
+              src="https://images.pexels.com/photos/388415/pexels-photo-388415.jpeg?auto=compress&cs=tinysrgb&w=1200" class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
 
         <!-- Who's welcome page -->
-        <div class="mx-auto max-w-5xl text-[#333333] my-16">
+        <div class="mx-auto max-w-5xl text-[#333333] md:my-16 my-4">
           <h1 class="text-center text-6xl font-bold">WHO'S <br /> WELCOME</h1>
-          <p class="text-center my-8 font-rs">
+          <p class="text-center my-8 font-rs text-xl">
             Let’s be honest here for a while. Our program isn’t for everyone. We have exercises that progressively
             overload like
             it’s a muscle growth training. This means if you aren’t the type to finish what you started you might wanna
@@ -68,7 +68,7 @@
         <div class="flex justify-center mx-auto my-12">
           <div>
             <hr class="w-36 h-1 bg-[#333333] border-0 mx-auto">
-            <h1 class="text-8xl font-extrabold text-center text-[#FBA819] mt-2">COURSES</h1>
+            <h1 class="md:text-8xl text-6xl font-extrabold text-center text-[#FBA819] mt-2">COURSES</h1>
           </div>
         </div>
         <FlexComponent imgSide="left" img-bg-color="bg-[#FF3D00]">
@@ -79,20 +79,21 @@
               </h1>
               <br />
               <br />
-              <p class="text-white font-rs">This course isn’t for passive learners. It’s for those ready to put in the work,
+              <p class="text-white font-rs text-xl">This course isn’t for passive learners. It’s for those ready to put
+                in the work,
                 sharpen their skills, and create with intent.
               </p>
               <br />
-              <p class="text-white font-rs">Whether you're just starting or leveling up, our hands-on lessons give you the
+              <p class="text-white font-rs text-xl">Whether you're just starting or leveling up, our hands-on lessons
+                give you the
                 tools,
                 techniques, and mindset to stand out—not blend in. <span class="text-[#FBA819]">Kickstart</span> your
                 journey. Kick mediocrity out of the industry.</p>
             </div>
           </template>
           <template #image>
-            <div class="justify-end">
-              <img src="/images/img1.png" />
-            </div>
+            <img
+              src="https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg" class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#FBA819]" class="mt-[1px]">
@@ -111,7 +112,7 @@
               <p class="font-azeret">Module 10: Portfolio Development and Sales</p>
               <div class="mt-12 flex gap-8 items-center">
                 <button @click="navigateTo('/course?course=graphic-design')"
-                  class="px-4 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-black text-xs button-shadow-black">
+                  class="px-4 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-black text-xs button-shadow-black whitespace-nowrap">
                   Enroll Now
                 </button>
                 <p class="text-[#FBA819] font-azeret">For 2,999 ETB one time payment</p>
@@ -119,9 +120,7 @@
             </div>
           </template>
           <template #image>
-            <div class="justify-end">
-              <img src="/images/img2.svg" />
-            </div>
+            <img  src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="left" img-bg-color="bg-[#C97155]" class="mt-[1px]">
@@ -132,20 +131,20 @@
               </h1>
               <br />
               <br />
-              <p class="text-white font-rs">This course isn’t for passive learners. It’s for those ready to put in the work,
+              <p class="text-white font-rs text-xl">This course isn’t for passive learners. It’s for those ready to put
+                in the work,
                 sharpen their skills, and create with intent.
               </p>
               <br />
-              <p class="text-white font-rs">Whether you're just starting or leveling up, our hands-on lessons give you the
+              <p class="text-white font-rs text-xl">Whether you're just starting or leveling up, our hands-on lessons
+                give you the
                 tools,
                 techniques, and mindset to stand out—not blend in. <span class="text-[#FBA819]">Kickstart</span> your
                 journey. Kick mediocrity out of the industry.</p>
             </div>
           </template>
           <template #image>
-            <div class="justify-end">
-              <img src="/images/img1.png" />
-            </div>
+              <img src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#3A3C87]" class="mt-[1px]">
@@ -163,7 +162,7 @@
               <p class="font-azeret">Module 9:  Major Project – Part 2</p>
               <div class="mt-12 flex gap-8 items-center">
                 <button @click="navigateTo('/course?course=motion-design')"
-                  class="px-4 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-black text-xs button-shadow-black">
+                  class="px-4 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-black text-xs button-shadow-black whitespace-nowrap">
                   Enroll Now
                 </button>
                 <p class="text-[#FBA819] font-azeret">For 3,999 ETB one time payment</p>
@@ -171,9 +170,7 @@
             </div>
           </template>
           <template #image>
-            <div class="justify-end">
-              <img src="/images/img2.svg" />
-            </div>
+            <img src="https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="object-cover h-full min-w-full" />
           </template>
         </FlexComponent>
       </div>

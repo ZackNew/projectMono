@@ -1,11 +1,11 @@
 <template>
-  <div class="my-32" id="home">
-    <div class="flex justify-center w-full">
+  <div class="md:my-32 my-12" id="home">
+    <div class="flex justify-center w-full px-4 md:px-0">
       <img src="/images/heroImg.svg" />
     </div>
     <div class="flex justify-center w-full mt-12">
       <button
-        class="px-12 py-5 bg-[#FF3D00] text-white rounded-full transition border-[1.5px] border-gray-800 text-3xl button-shadow-lg font-bold leading-[26px]">
+        class="px-12 md:py-5 py-1 bg-[#FF3D00] text-white rounded-full transition border-[1.5px] border-gray-800 md:text-3xl text-xl button-shadow-lg font-bold leading-[26px]">
         Explore <br/> Programs
       </button>
     </div>

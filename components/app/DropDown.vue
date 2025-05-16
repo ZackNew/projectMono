@@ -27,9 +27,7 @@ const selectOption = (option: { label: string; value: any }) => {
 
 const selectedLabel = computed(() => selected.value?.label)
 
-onClickOutside(dropdownRef, () => {
-  console.log('finger');
-  
+onClickOutside(dropdownRef, () => {  
   isOpen.value = false
 })
 </script>
