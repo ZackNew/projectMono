@@ -1,12 +1,12 @@
 import nodemailer from "nodemailer";
-import { getClientEmailHtml } from "../utils/emails/register-client-email";
-import { getAdminEmailHtml } from "../utils/emails/register-admin-email";
+import { getClientContactEmailHtml } from "../utils/emails/contact-client-email";
+import { getAdminContactEmailHtml } from "../utils/emails/contact-admin-email";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { fullName, phone, email, designSkill, futureUse, hearFrom, paymentMethod, courseRegistered } = body
+  const { email, name, message } = body
 
-   if (!fullName || !phone || !email || !designSkill || !futureUse || !hearFrom || !paymentMethod || !courseRegistered) {
+   if (!email || !name || !message) {
     return createError({ statusCode: 400, message: 'Name and email are required' })
   }
 
@@ -20,32 +20,25 @@ export default defineEventHandler(async (event) => {
     },
   });
   
-  const clientEmail = getClientEmailHtml({
-    fullName, courseRegistered
+  const clientEmail = getClientContactEmailHtml({
+    name
   })
   // send email to the client
   await transporter.sendMail({
     from: `"Project Mono" <${process.env.NOREP_SMTP_USER}>`,
     to: email,
-    subject: "Welcome to Our Platform",
+    subject: "We've received your message – Thank you for contacting us!",
     html: clientEmail,
   });
   
-  const adminEmail = getAdminEmailHtml({
-    fullName,
-    email,
-    phone,
-    designSkill,
-    futureUse,
-    hearFrom,
-    paymentMethod,
-    courseRegistered
+  const adminEmail = getAdminContactEmailHtml({
+    name, email, message
   })
   // send email to admin
   await transporter.sendMail({
-    from: `"Your Site" <${process.env.NOREP_SMTP_USER}>`,
+    from: `"Project Mono" <${process.env.NOREP_SMTP_USER}>`,
     to: process.env.ADMIN_EMAIL,
-    subject: "New User Registration",
+    subject: `New Contact Us message from ${name}`,
     html: adminEmail,
   });
 

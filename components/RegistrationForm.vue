@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -58,7 +57,6 @@ async function handleSubmit () {
         courseRegistered: route.query.course === 'graphic-design' ? 'Graphic Design' : 'Motion Design',
       }),
     })
-    console.log(result);
     if(result.success) {
       clearForm()
       isModalVisible.value = true
