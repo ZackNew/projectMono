@@ -12,6 +12,8 @@ const formSchema = z.object({
   paymentMethod: z.string().min(1, { message: 'All fields are required.' }),
 })
 
+const route = useRoute();
+
 const fullName = ref('')
 const phone = ref('')
 const email = ref('')
@@ -21,8 +23,11 @@ const hearFrom = ref('')
 const paymentMethod = ref('')
 
 const errorMessage = ref('')
+const isLoading = ref(false)
+const isModalVisible = ref(false)
 
-const handleSubmit = () => {
+async function handleSubmit () {
+  isLoading.value = true
   const result = formSchema.safeParse({
     fullName: fullName.value,
     phone: phone.value,
@@ -37,8 +42,40 @@ const handleSubmit = () => {
     errorMessage.value = result.error.errors[0].message
   } else {
     errorMessage.value = ''
-    console.log('Form submitted', result.data)
+    const result = await $fetch<{ success: boolean; message: string }>('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: fullName.value,
+        phone: phone.value,
+        email: email.value,
+        designSkill: designSkill.value,
+        futureUse: futureUse.value,
+        hearFrom: hearFrom.value,
+        paymentMethod: paymentMethod.value,
+        courseRegistered: route.query.course === 'graphic-design' ? 'Graphic Design' : 'Motion Design',
+      }),
+    })
+    console.log(result);
+    if(result.success) {
+      clearForm()
+      isModalVisible.value = true
+    }
   }
+  isLoading.value = false
+}
+
+function clearForm () {
+  fullName.value = ''
+  phone.value = ''
+  email.value = ''
+  designSkill.value = ''
+  futureUse.value = ''
+  hearFrom.value = ''
+  paymentMethod.value = ''
+  errorMessage.value = ''
 }
 </script>
 
@@ -51,13 +88,13 @@ const handleSubmit = () => {
       <div class="flex-1 self-center md:mb-12">
         <h1 class="uppercase text-center text-[#FBA819] font-bold text-2xl mb-4">registration form</h1>
         <form @submit.prevent="handleSubmit" class="flex flex-col items-center justify-center gap-4 mb-4">
-          <input v-model="fullName" type="text" placeholder="Full Name:"
+          <input v-model="fullName" type="text" placeholder="Full Name:" name="fullName"
             class="border-[1px] border-[#333333] sm:w-[260px] md:w-[360px] rounded-full py-2 px-6 button-shadow-black bg-[#E9E3D3] text-xs focus:outline-none focus:ring-1 focus:ring-gray-500" />
 
           <div class="flex items-center gap-2 justify-center">
-            <input v-model="phone" type="text" placeholder="Phone Num:"
+            <input v-model="phone" type="text" placeholder="Phone Num:" name="phone"
               class="border-[1px] border-[#333333] w-[150px] sm:w-[160px] md:w-[235px] rounded-full py-2 px-6 button-shadow-black bg-[#E9E3D3] text-xs focus:outline-none focus:ring-1 focus:ring-gray-500" />
-            <input v-model="email" type="text" placeholder="Email:"
+            <input v-model="email" type="text" placeholder="Email:" name="email"
               class="border-[1px] border-[#333333] w-[150px] sm:w-[160px] md:w-[235px] rounded-full py-2 px-6 button-shadow-black bg-[#E9E3D3] text-xs focus:outline-none focus:ring-1 focus:ring-gray-500" />
           </div>
 
@@ -87,8 +124,11 @@ const handleSubmit = () => {
           </div>
 
           <button
-            class="px-5 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-gray-800 text-xs button-shadow-black uppercase">
-            enroll
+            :disabled="isLoading"
+            class="px-5 py-2 bg-[#FBA819] text-white rounded-full transition border-[1.5px] border-gray-800 text-xs button-shadow-black uppercase flex items-center gap-2"
+          >
+            Enroll
+            <AppSpinnerIcon v-if="isLoading"/>
           </button>
         </form>
       </div>
@@ -96,6 +136,11 @@ const handleSubmit = () => {
         <img class="w-44" src="/images/sun.svg" alt="">
       </div>
     </div>
+    <AppModal
+      :isVisible="isModalVisible" 
+      @cancel="isModalVisible = false"
+      @confirm="isModalVisible = false"
+    />
   </div>
 </template>
 
