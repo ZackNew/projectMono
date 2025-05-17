@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
     port: Number(process.env.SMTP_PORT),
     secure: true,
     auth: {
-      user: process.env.NOREP_SMTP_USER,
+      user: process.env.SUPPORT_SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
   });
@@ -24,8 +24,8 @@ export default defineEventHandler(async (event) => {
     name
   })
   // send email to the client
-  await transporter.sendMail({
-    from: `"Project Mono" <${process.env.NOREP_SMTP_USER}>`,
+  transporter.sendMail({
+    from: `"Project Mono" <${process.env.SUPPORT_SMTP_USER}>`,
     to: email,
     subject: "We've received your message – Thank you for contacting us!",
     html: clientEmail,
@@ -35,8 +35,8 @@ export default defineEventHandler(async (event) => {
     name, email, message
   })
   // send email to admin
-  await transporter.sendMail({
-    from: `"Project Mono" <${process.env.NOREP_SMTP_USER}>`,
+  transporter.sendMail({
+    from: `"Project Mono" <${process.env.SUPPORT_SMTP_USER}>`,
     to: process.env.ADMIN_EMAIL,
     subject: `New Contact Us message from ${name}`,
     html: adminEmail,

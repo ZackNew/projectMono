@@ -21,9 +21,8 @@
             </div>
           </template>
           <template #image>
-            <img
-              src="https://cdn.pixabay.com/photo/2023/01/22/19/06/swan-7737169_1280.jpg"
-              class="object-cover h-full min-w-full" />
+            <NuxtImg src="https://cdn.pixabay.com/photo/2023/01/22/19/06/swan-7737169_1280.jpg"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#FBA819]" class="mt-[1px]">
@@ -45,8 +44,9 @@
             </div>
           </template>
           <template #image>
-            <img
-              src="https://images.pexels.com/photos/388415/pexels-photo-388415.jpeg?auto=compress&cs=tinysrgb&w=1200" class="object-cover h-full min-w-full" />
+            <NuxtImg
+              src="https://images.pexels.com/photos/388415/pexels-photo-388415.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
 
@@ -92,8 +92,8 @@
             </div>
           </template>
           <template #image>
-            <img
-              src="https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg" class="object-cover h-full min-w-full" />
+            <NuxtImg src="https://cdn.pixabay.com/photo/2017/10/10/21/47/laptop-2838921_1280.jpg"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#FBA819]" class="mt-[1px]">
@@ -120,7 +120,9 @@
             </div>
           </template>
           <template #image>
-            <img  src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="object-cover h-full min-w-full" />
+            <NuxtImg
+              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="left" img-bg-color="bg-[#C97155]" class="mt-[1px]">
@@ -144,7 +146,9 @@
             </div>
           </template>
           <template #image>
-              <img src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load" class="object-cover h-full min-w-full" />
+            <NuxtImg
+              src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
         <FlexComponent imgSide="right" img-bg-color="bg-[#3A3C87]" class="mt-[1px]">
@@ -170,7 +174,9 @@
             </div>
           </template>
           <template #image>
-            <img src="https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="object-cover h-full min-w-full" />
+            <NuxtImg
+              src="https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              class="object-cover h-full min-w-full" loading="lazy" />
           </template>
         </FlexComponent>
       </div>

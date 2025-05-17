@@ -21,6 +21,14 @@ const futureUse = ref('')
 const hearFrom = ref('')
 const paymentMethod = ref('')
 
+const toastState = ref({
+  title: '',
+  message: '',
+  type: 'success' as 'success' | 'error' | 'warning' | 'info',
+})
+
+const isToastVisible = ref(false)
+
 const errorMessage = ref('')
 const isLoading = ref(false)
 const isModalVisible = ref(false)
@@ -38,6 +46,10 @@ async function handleSubmit () {
   })
 
   if (!result.success) {
+    toastState.value.title = 'Error'
+    toastState.value.message = 'Something went wrong please try again.'
+    toastState.value.type = 'error'
+    isToastVisible.value = true
     errorMessage.value = result.error.errors[0].message
   } else {
     errorMessage.value = ''
@@ -60,6 +72,11 @@ async function handleSubmit () {
     if(result.success) {
       clearForm()
       isModalVisible.value = true
+    } else {
+      toastState.value.title = 'Error'
+      toastState.value.message = "Something went wrong please try again."
+      toastState.value.type = 'error'
+      isToastVisible.value = true
     }
   }
   isLoading.value = false
@@ -74,6 +91,13 @@ function clearForm () {
   hearFrom.value = ''
   paymentMethod.value = ''
   errorMessage.value = ''
+}
+
+function resetToast() {
+  isToastVisible.value = false
+  toastState.value.title = ''
+  toastState.value.message = ''
+  toastState.value.type = 'success'
 }
 </script>
 
@@ -96,25 +120,30 @@ function clearForm () {
               class="border-[1px] border-[#333333] w-[150px] sm:w-[160px] md:w-[235px] rounded-full py-2 px-6 button-shadow-black bg-[#E9E3D3] text-xs focus:outline-none focus:ring-1 focus:ring-gray-500" />
           </div>
 
-          <AppDropDown width="w-[340px] sm:w-[390px] md:w-[506px]" :options="[
-            { label: 'Option A', value: 'a' },
-            { label: 'Option B', value: 'b' }
-          ]" placeholder="How skill are you in design?" @select="val => designSkill = val" />
-
+          <AppDropDown 
+            width="w-[340px] sm:w-[390px] md:w-[506px]" 
+            :options="[
+              { label: 'Option A', value: 'a' },
+              { label: 'Option B', value: 'b' }
+            ]" 
+            placeholder="How skill are you in design?" 
+            v-model="designSkill"
+          />
+          
           <AppDropDown width="w-[320px] sm:w-[380px] md:w-[476px]" :options="[
             { label: 'Option A', value: 'a' },
             { label: 'Option B', value: 'b' }
-          ]" placeholder="How do you want to use your learned skill afterwards?" @select="val => futureUse = val" />
+          ]" placeholder="How do you want to use your learned skill afterwards?" v-model="futureUse" />
 
           <AppDropDown width="w-[280px] sm:w-[310px] md:w-[367px]" :options="[
             { label: 'Option A', value: 'a' },
             { label: 'Option B', value: 'b' }
-          ]" placeholder="where did you hear about us?" @select="val => hearFrom = val"/>
+          ]" placeholder="where did you hear about us?" v-model="hearFrom"/>
 
           <AppDropDown width="w-[250px] sm:w-[250px] md:w-[248px]" :options="[
             { label: 'Option A', value: 'a' },
             { label: 'Option B', value: 'b' }
-          ]" placeholder="preferred payment methods" @select="val => paymentMethod = val"/>
+          ]" placeholder="preferred payment methods" v-model="paymentMethod"/>
 
           <!-- Single-line error message -->
           <div v-if="errorMessage" class="text-red-500 text-xs font-semibold text-center">
@@ -138,7 +167,12 @@ function clearForm () {
       :isVisible="isModalVisible" 
       @cancel="isModalVisible = false"
       @confirm="isModalVisible = false"
-    />
+    >
+      <template #body>
+        <img src="/images/success.svg" alt="" class="h-96">
+      </template>
+    </AppModal>
+    <AppToast v-if="isToastVisible" :duration="5000" :title="toastState.title" :message="toastState.message" :type="toastState.type" @cleared="resetToast()"/>
   </div>
 </template>
 

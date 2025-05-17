@@ -1,3 +1,38 @@
+<script setup lang="ts">
+const isOpen = ref(false);
+const router = useRouter()
+const route = useRoute()
+
+function goToSection(id: string) {
+  if(isOpen) {
+    isOpen.value = false
+  }
+  const hash = id ? `#${id}` : ''
+
+  if (route.path === '/') {
+    scrollToSection(id)
+  } else {
+    router.push({ path: '/', hash }).then(() => {
+      // Wait until page content is rendered
+      setTimeout(() => {
+        scrollToSection(id)
+      }, 300)
+    })
+  }
+}
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+const isHomePage = computed(() => route.path === '/')
+
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value;
+};
+</script>
 <template>
   <div class="w-full px-6 py-4">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -5,11 +40,19 @@
         <img src="/images/logo.png" />
       </NuxtLink>
 
-      <nav class="hidden md:flex items-center gap-10 lg:gap-16 md:gap-8 w-full justify-center">
+      <!-- <nav class="hidden md:flex items-center gap-10 lg:gap-16 md:gap-8 w-full justify-center">
         <NuxtLink to="/" class="text-gray-600 hover:text-black text-xs font-azeret">Home</NuxtLink>
         <NuxtLink to="/#about" class="text-gray-600 hover:text-black text-xs font-azeret">About</NuxtLink>
         <NuxtLink to="#courses" class="text-gray-600 hover:text-black text-xs font-azeret">Classes</NuxtLink>
         <NuxtLink to="#footer" class="text-gray-600 hover:text-black text-xs font-azeret">Contact</NuxtLink>
+      </nav> -->
+      <nav class="hidden md:flex items-center gap-10 lg:gap-16 md:gap-8 w-full justify-center">
+        <button @click="goToSection('')" class="text-gray-600 hover:text-black text-xs font-azeret">Home</button>
+        <button @click="goToSection('about')" class="text-gray-600 hover:text-black text-xs font-azeret">About</button>
+        <button @click="goToSection('courses')"
+          class="text-gray-600 hover:text-black text-xs font-azeret">Classes</button>
+        <button @click="goToSection('footer')"
+          class="text-gray-600 hover:text-black text-xs font-azeret">Contact</button>
       </nav>
 
       <div class="hidden md:block">
@@ -36,10 +79,12 @@
       </button>
     </div>
 
-    <div v-if="isOpen" class="md:hidden mt-4 px-4 space-y-3">
-      <NuxtLink to="/" class="block text-gray-700 hover:text-black font-sans">Home</NuxtLink>
-      <NuxtLink to="/about" class="block text-gray-700 hover:text-black">About</NuxtLink>
-      <NuxtLink to="/services" class="block text-gray-700 hover:text-black">Services</NuxtLink>
+    <div v-if="isOpen" class="md:hidden mt-4 px-4 space-y-3 flex flex-col items-start ">
+      <button @click="goToSection('')" class="text-gray-600 hover:text-black text-xs font-azeret">Home</button>
+      <button @click="goToSection('about')" class="text-gray-600 hover:text-black text-xs font-azeret">About</button>
+      <button @click="goToSection('courses')"
+        class="text-gray-600 hover:text-black text-xs font-azeret">Classes</button>
+      <button @click="goToSection('footer')" class="text-gray-600 hover:text-black text-xs font-azeret">Contact</button>
       <button v-if="isHomePage"
         class="px-4 py-2 bg-[#FF3D00] text-white rounded-full transition border-[1.5px] border-gray-800 text-xs button-shadow">
         Enroll
@@ -54,14 +99,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-const isOpen = ref(false);
-const route = useRoute()
-
-const isHomePage = computed(() => route.path === '/')
-
-const toggleMenu = () => {
-  isOpen.value = !isOpen.value;
-};
-</script>

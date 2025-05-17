@@ -2,18 +2,25 @@
 import { z } from 'zod'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'All fields are requiredssssssss.'),
+  name: z.string().min(1, 'All fields are required.'),
   email: z.string().email('Invalid email.'),
-  message: z.string().min(1, 'All fields are requiredss.'),
+  message: z.string().min(1, 'All fields are required.'),
 })
 
 const name = ref('')
 const message = ref('')
 const email = ref('')
 
+const toastState = ref({
+  title: '',
+  message: '',
+  type: 'success' as 'success' | 'error' | 'warning' | 'info',
+})
+
+const isToastVisible = ref(false)
+
 const errorMessage = ref('')
 const isLoading = ref(false)
-const isModalVisible = ref(false)
 
 async function handleSubmit() {
   isLoading.value = true
@@ -24,6 +31,10 @@ async function handleSubmit() {
   })
 
   if (!result.success) {
+    toastState.value.title = 'Error'
+    toastState.value.message = 'Something went wrong please try again.'
+    toastState.value.type = 'error'
+    isToastVisible.value = true
     errorMessage.value = result.error.errors[0].message
   } else {
     errorMessage.value = ''
@@ -38,10 +49,17 @@ async function handleSubmit() {
         email: email.value
       }),
     })
-    console.log(result);
     if (result.success) {
       clearForm()
-      isModalVisible.value = true
+      toastState.value.title = 'Message Sent!'
+      toastState.value.message = 'Thanks for reaching out. We will get back to you shortly.'
+      toastState.value.type = 'success'
+      isToastVisible.value = true
+    } else {
+      toastState.value.title = 'Error'
+      toastState.value.message = "Something went wrong please try again."
+      toastState.value.type = 'error'
+      isToastVisible.value = true
     }
   }
   isLoading.value = false
@@ -52,11 +70,18 @@ function clearForm() {
   message.value = ''
   email.value = ''
 }
+
+function resetToast() {
+  isToastVisible.value = false
+  toastState.value.title = ''
+  toastState.value.message = ''
+  toastState.value.type = 'success'
+}
 </script>
 
 <template>
   <div id="footer" class="relative">
-    <AppToast :duration="5000" title="pink" message="lorem ippsum" type="success"/>
+    <AppToast v-if="isToastVisible" :duration="5000" :title="toastState.title" :message="toastState.message" :type="toastState.type" @cleared="resetToast()"/>
     <div class="md:flex max-w-7xl justify-evenly md:pt-12 md:px-12 p-4 lg:mx-auto ">
       <div class="md:flex w-full mx-auto md:w-1/2 items-end justify-center md:-m-16 z-0 relative">
         <img src="/images/sayWhatsup.svg" alt="what up" class="md:w-[80%] md:h-[80%] w-[40%] mx-auto" />

@@ -8,6 +8,11 @@ const props = defineProps<{
   duration: number
 }>()
 
+const emit = defineEmits<{
+  (e: 'cleared'): void
+}>()
+
+
 const visible = ref(true)
 
 const toastTypeClasses = {
@@ -20,14 +25,16 @@ const toastTypeClasses = {
 onMounted(() => {
   setTimeout(() => {
     visible.value = false
+    emit('cleared')
   }, props.duration)
+  
 })
 </script>
 
 <template>
   <div
     v-if="visible"
-    class="fixed top-4 right-4 z-50 max-w-sm w-full rounded-xl shadow-lg p-4 flex items-start gap-3 transition-all duration-300"
+    class="slide-left fixed top-4 right-4 z-50 max-w-sm w-full rounded-xl shadow-lg p-4 flex items-start gap-3 transition-all duration-300"
     :class="toastTypeClasses"
   >
     <div class="mt-1">
@@ -52,4 +59,19 @@ onMounted(() => {
   </div>
 </template>
 
+<style scoped>
+@keyframes slide-left {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
 
+.slide-left {
+  animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+</style>

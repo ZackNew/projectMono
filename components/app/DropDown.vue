@@ -5,27 +5,39 @@ const props = defineProps<{
   width?: string
   options: { label: string; value: any }[]
   placeholder?: string
+  modelValue?: any
 }>()
 
 const emit = defineEmits<{
+  (e: 'update:modelValue', value: any): void
   (e: 'select', value: any): void
 }>()
 
 const isOpen = ref(false)
 const dropdownRef = ref<HTMLElement | null>(null)
-const selected = ref<any>(null)
 
+const selected = computed({
+  get: () => props.modelValue,
+  set: (val) => {
+    emit('update:modelValue', val)
+    emit('select', val?.value ?? val) 
+  },
+})
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value
 }
 
 const selectOption = (option: { label: string; value: any }) => {
-  selected.value = option
-  emit('select', option.value)
+  emit('update:modelValue', option.value) 
+  emit('select', option.value) 
   isOpen.value = false
 }
 
-const selectedLabel = computed(() => selected.value?.label)
+const selectedOption = computed(() => {
+  return props.options.find((opt) => opt.value === props.modelValue) ?? null
+})
+
+const selectedLabel = computed(() => selectedOption.value?.label)
 
 onClickOutside(dropdownRef, () => {  
   isOpen.value = false
